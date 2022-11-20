@@ -2,7 +2,7 @@ using FFMpegCore;
 using System.Data.Common;
 using System.Windows.Forms;
 
-namespace WinFormsApp1
+namespace ImgToMp4Utility
 {
     public partial class Form1 : Form
     {
@@ -14,6 +14,9 @@ namespace WinFormsApp1
         private readonly List<InputImage> images = new List<InputImage>();
         public Form1()
         {
+            inputPath = "";
+            outputPath = "";//load previous?
+            filesUnfiltered = new string[0]; 
             InitializeComponent();
             filetypeSelect.SelectedIndex = 0;
             selectedExtension = filetypeSelect.Text.ToString();
@@ -99,9 +102,9 @@ namespace WinFormsApp1
             CalculateFiltered();
         }
 
-        private async void renderButton_Click(object sender, EventArgs e)
+        private void renderButton_Click(object sender, EventArgs e)
         {
-            if(String.IsNullOrEmpty(outputPath))
+            if (String.IsNullOrEmpty(outputPath))
             {
                 //report: no output path selected.
                 return;

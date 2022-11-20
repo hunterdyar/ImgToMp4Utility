@@ -1,4 +1,6 @@
-namespace WinFormsApp1
+using FFMpegCore;
+
+namespace ImgToMp4Utility
 {
     internal static class Program
     {
@@ -11,6 +13,7 @@ namespace WinFormsApp1
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
+            GlobalFFOptions.Configure(options => options.BinaryFolder = System.AppDomain.CurrentDomain.BaseDirectory+"/Resources/");
             Application.Run(new Form1());
         }
     }

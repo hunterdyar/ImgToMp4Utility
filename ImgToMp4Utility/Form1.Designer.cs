@@ -1,4 +1,4 @@
-﻿namespace WinFormsApp1
+﻿namespace ImgToMp4Utility
 {
     partial class Form1
     {
@@ -35,9 +35,7 @@
             System.Windows.Forms.Label filenameSuffixLabel;
             System.Windows.Forms.Label startNumberLabel;
             System.Windows.Forms.Label framerateLabel;
-            this.selectSrcLabel = new System.Windows.Forms.Label();
-            this.selectSrcButton = new System.Windows.Forms.Button();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            System.Windows.Forms.SplitContainer splitContainer1;
             this.filteredImageCount = new System.Windows.Forms.Label();
             this.sortButton = new System.Windows.Forms.Button();
             this.startNumber = new System.Windows.Forms.NumericUpDown();
@@ -46,11 +44,13 @@
             this.filetypeSelect = new System.Windows.Forms.ComboBox();
             this.filteredFilesView = new System.Windows.Forms.ListBox();
             this.totalFileCountLabel = new System.Windows.Forms.Label();
+            this.selectSrcButton = new System.Windows.Forms.Button();
+            this.selectSrcLabel = new System.Windows.Forms.Label();
+            this.outputPathLabel = new System.Windows.Forms.Label();
             this.selectOutputFileButton = new System.Windows.Forms.Button();
             this.framerate = new System.Windows.Forms.NumericUpDown();
             this.renderButton = new System.Windows.Forms.Button();
             this.chooseOutputSaveFileDialogue = new System.Windows.Forms.SaveFileDialog();
-            this.outputPathLabel = new System.Windows.Forms.Label();
             inputPanelLabel = new System.Windows.Forms.Label();
             outputPanelLabel = new System.Windows.Forms.Label();
             extensionLabel = new System.Windows.Forms.Label();
@@ -58,10 +58,11 @@
             filenameSuffixLabel = new System.Windows.Forms.Label();
             startNumberLabel = new System.Windows.Forms.Label();
             framerateLabel = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
+            splitContainer1 = new System.Windows.Forms.SplitContainer();
+            ((System.ComponentModel.ISupportInitialize)(splitContainer1)).BeginInit();
+            splitContainer1.Panel1.SuspendLayout();
+            splitContainer1.Panel2.SuspendLayout();
+            splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.startNumber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.framerate)).BeginInit();
             this.SuspendLayout();
@@ -131,60 +132,41 @@
             framerateLabel.TabIndex = 16;
             framerateLabel.Text = "Framerate:";
             // 
-            // selectSrcLabel
-            // 
-            this.selectSrcLabel.AutoSize = true;
-            this.selectSrcLabel.Location = new System.Drawing.Point(197, 73);
-            this.selectSrcLabel.Name = "selectSrcLabel";
-            this.selectSrcLabel.Size = new System.Drawing.Size(16, 15);
-            this.selectSrcLabel.TabIndex = 1;
-            this.selectSrcLabel.Text = "...";
-            // 
-            // selectSrcButton
-            // 
-            this.selectSrcButton.Location = new System.Drawing.Point(3, 69);
-            this.selectSrcButton.Name = "selectSrcButton";
-            this.selectSrcButton.Size = new System.Drawing.Size(188, 23);
-            this.selectSrcButton.TabIndex = 0;
-            this.selectSrcButton.Text = "Select Folder";
-            this.selectSrcButton.UseVisualStyleBackColor = true;
-            this.selectSrcButton.Click += new System.EventHandler(this.onFolderSelectChange);
-            // 
             // splitContainer1
             // 
-            this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.splitContainer1.Location = new System.Drawing.Point(12, 12);
-            this.splitContainer1.Name = "splitContainer1";
+            splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            splitContainer1.Location = new System.Drawing.Point(12, 12);
+            splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.filteredImageCount);
-            this.splitContainer1.Panel1.Controls.Add(this.sortButton);
-            this.splitContainer1.Panel1.Controls.Add(this.startNumber);
-            this.splitContainer1.Panel1.Controls.Add(this.suffixBox);
-            this.splitContainer1.Panel1.Controls.Add(this.prefixBox);
-            this.splitContainer1.Panel1.Controls.Add(filenameSuffixLabel);
-            this.splitContainer1.Panel1.Controls.Add(filenamePrefixLabel);
-            this.splitContainer1.Panel1.Controls.Add(startNumberLabel);
-            this.splitContainer1.Panel1.Controls.Add(extensionLabel);
-            this.splitContainer1.Panel1.Controls.Add(this.filetypeSelect);
-            this.splitContainer1.Panel1.Controls.Add(this.filteredFilesView);
-            this.splitContainer1.Panel1.Controls.Add(this.totalFileCountLabel);
-            this.splitContainer1.Panel1.Controls.Add(inputPanelLabel);
-            this.splitContainer1.Panel1.Controls.Add(this.selectSrcButton);
-            this.splitContainer1.Panel1.Controls.Add(this.selectSrcLabel);
+            splitContainer1.Panel1.Controls.Add(this.filteredImageCount);
+            splitContainer1.Panel1.Controls.Add(this.sortButton);
+            splitContainer1.Panel1.Controls.Add(this.startNumber);
+            splitContainer1.Panel1.Controls.Add(this.suffixBox);
+            splitContainer1.Panel1.Controls.Add(this.prefixBox);
+            splitContainer1.Panel1.Controls.Add(filenameSuffixLabel);
+            splitContainer1.Panel1.Controls.Add(filenamePrefixLabel);
+            splitContainer1.Panel1.Controls.Add(startNumberLabel);
+            splitContainer1.Panel1.Controls.Add(extensionLabel);
+            splitContainer1.Panel1.Controls.Add(this.filetypeSelect);
+            splitContainer1.Panel1.Controls.Add(this.filteredFilesView);
+            splitContainer1.Panel1.Controls.Add(this.totalFileCountLabel);
+            splitContainer1.Panel1.Controls.Add(inputPanelLabel);
+            splitContainer1.Panel1.Controls.Add(this.selectSrcButton);
+            splitContainer1.Panel1.Controls.Add(this.selectSrcLabel);
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.outputPathLabel);
-            this.splitContainer1.Panel2.Controls.Add(this.selectOutputFileButton);
-            this.splitContainer1.Panel2.Controls.Add(this.framerate);
-            this.splitContainer1.Panel2.Controls.Add(framerateLabel);
-            this.splitContainer1.Panel2.Controls.Add(this.renderButton);
-            this.splitContainer1.Panel2.Controls.Add(outputPanelLabel);
-            this.splitContainer1.Size = new System.Drawing.Size(776, 426);
-            this.splitContainer1.SplitterDistance = 330;
-            this.splitContainer1.TabIndex = 1;
+            splitContainer1.Panel2.Controls.Add(this.outputPathLabel);
+            splitContainer1.Panel2.Controls.Add(this.selectOutputFileButton);
+            splitContainer1.Panel2.Controls.Add(this.framerate);
+            splitContainer1.Panel2.Controls.Add(framerateLabel);
+            splitContainer1.Panel2.Controls.Add(this.renderButton);
+            splitContainer1.Panel2.Controls.Add(outputPanelLabel);
+            splitContainer1.Size = new System.Drawing.Size(776, 426);
+            splitContainer1.SplitterDistance = 330;
+            splitContainer1.TabIndex = 1;
             // 
             // filteredImageCount
             // 
@@ -267,6 +249,34 @@
             this.totalFileCountLabel.TabIndex = 3;
             this.totalFileCountLabel.Text = "Total File Count (unfiltered): 0";
             // 
+            // selectSrcButton
+            // 
+            this.selectSrcButton.Location = new System.Drawing.Point(3, 69);
+            this.selectSrcButton.Name = "selectSrcButton";
+            this.selectSrcButton.Size = new System.Drawing.Size(188, 23);
+            this.selectSrcButton.TabIndex = 0;
+            this.selectSrcButton.Text = "Select Folder";
+            this.selectSrcButton.UseVisualStyleBackColor = true;
+            this.selectSrcButton.Click += new System.EventHandler(this.onFolderSelectChange);
+            // 
+            // selectSrcLabel
+            // 
+            this.selectSrcLabel.AutoSize = true;
+            this.selectSrcLabel.Location = new System.Drawing.Point(197, 73);
+            this.selectSrcLabel.Name = "selectSrcLabel";
+            this.selectSrcLabel.Size = new System.Drawing.Size(16, 15);
+            this.selectSrcLabel.TabIndex = 1;
+            this.selectSrcLabel.Text = "...";
+            // 
+            // outputPathLabel
+            // 
+            this.outputPathLabel.AutoSize = true;
+            this.outputPathLabel.Location = new System.Drawing.Point(135, 47);
+            this.outputPathLabel.Name = "outputPathLabel";
+            this.outputPathLabel.Size = new System.Drawing.Size(16, 15);
+            this.outputPathLabel.TabIndex = 17;
+            this.outputPathLabel.Text = "...";
+            // 
             // selectOutputFileButton
             // 
             this.selectOutputFileButton.Location = new System.Drawing.Point(15, 43);
@@ -311,29 +321,20 @@
             this.chooseOutputSaveFileDialogue.FileName = "output";
             this.chooseOutputSaveFileDialogue.Filter = "MP4 Files | *.mp4";
             // 
-            // outputPathLabel
-            // 
-            this.outputPathLabel.AutoSize = true;
-            this.outputPathLabel.Location = new System.Drawing.Point(135, 47);
-            this.outputPathLabel.Name = "outputPathLabel";
-            this.outputPathLabel.Size = new System.Drawing.Size(16, 15);
-            this.outputPathLabel.TabIndex = 17;
-            this.outputPathLabel.Text = "...";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.splitContainer1);
+            this.Controls.Add(splitContainer1);
             this.Name = "Form1";
             this.Text = "ImageSequenceToMp4";
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel1.PerformLayout();
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            this.splitContainer1.Panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
+            splitContainer1.Panel1.ResumeLayout(false);
+            splitContainer1.Panel1.PerformLayout();
+            splitContainer1.Panel2.ResumeLayout(false);
+            splitContainer1.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(splitContainer1)).EndInit();
+            splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.startNumber)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.framerate)).EndInit();
             this.ResumeLayout(false);
