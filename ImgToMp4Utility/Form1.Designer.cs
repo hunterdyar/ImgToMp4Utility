@@ -38,6 +38,7 @@
             this.selectSrcLabel = new System.Windows.Forms.Label();
             this.selectSrcButton = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.filteredImageCount = new System.Windows.Forms.Label();
             this.sortButton = new System.Windows.Forms.Button();
             this.startNumber = new System.Windows.Forms.NumericUpDown();
             this.suffixBox = new System.Windows.Forms.TextBox();
@@ -45,9 +46,11 @@
             this.filetypeSelect = new System.Windows.Forms.ComboBox();
             this.filteredFilesView = new System.Windows.Forms.ListBox();
             this.totalFileCountLabel = new System.Windows.Forms.Label();
+            this.selectOutputFileButton = new System.Windows.Forms.Button();
             this.framerate = new System.Windows.Forms.NumericUpDown();
             this.renderButton = new System.Windows.Forms.Button();
-            this.filteredImageCount = new System.Windows.Forms.Label();
+            this.chooseOutputSaveFileDialogue = new System.Windows.Forms.SaveFileDialog();
+            this.outputPathLabel = new System.Windows.Forms.Label();
             inputPanelLabel = new System.Windows.Forms.Label();
             outputPanelLabel = new System.Windows.Forms.Label();
             extensionLabel = new System.Windows.Forms.Label();
@@ -100,7 +103,6 @@
             filenamePrefixLabel.Size = new System.Drawing.Size(91, 15);
             filenamePrefixLabel.TabIndex = 7;
             filenamePrefixLabel.Text = "Filename Prefix:";
-            filenamePrefixLabel.Click += new System.EventHandler(this.label1_Click);
             // 
             // filenameSuffixLabel
             // 
@@ -110,7 +112,6 @@
             filenameSuffixLabel.Size = new System.Drawing.Size(91, 15);
             filenameSuffixLabel.TabIndex = 8;
             filenameSuffixLabel.Text = "Filename Suffix:";
-            filenameSuffixLabel.Click += new System.EventHandler(this.filenameSuffixLabel_Click);
             // 
             // startNumberLabel
             // 
@@ -175,6 +176,8 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.outputPathLabel);
+            this.splitContainer1.Panel2.Controls.Add(this.selectOutputFileButton);
             this.splitContainer1.Panel2.Controls.Add(this.framerate);
             this.splitContainer1.Panel2.Controls.Add(framerateLabel);
             this.splitContainer1.Panel2.Controls.Add(this.renderButton);
@@ -182,6 +185,15 @@
             this.splitContainer1.Size = new System.Drawing.Size(776, 426);
             this.splitContainer1.SplitterDistance = 330;
             this.splitContainer1.TabIndex = 1;
+            // 
+            // filteredImageCount
+            // 
+            this.filteredImageCount.AutoSize = true;
+            this.filteredImageCount.Location = new System.Drawing.Point(176, 306);
+            this.filteredImageCount.Name = "filteredImageCount";
+            this.filteredImageCount.Size = new System.Drawing.Size(149, 15);
+            this.filteredImageCount.TabIndex = 16;
+            this.filteredImageCount.Text = "Total File Count (filtered): 0";
             // 
             // sortButton
             // 
@@ -204,6 +216,7 @@
             this.startNumber.Name = "startNumber";
             this.startNumber.Size = new System.Drawing.Size(91, 23);
             this.startNumber.TabIndex = 14;
+            this.startNumber.ValueChanged += new System.EventHandler(this.OnNeedRecalculation);
             // 
             // suffixBox
             // 
@@ -211,7 +224,7 @@
             this.suffixBox.Name = "suffixBox";
             this.suffixBox.Size = new System.Drawing.Size(94, 23);
             this.suffixBox.TabIndex = 10;
-            this.suffixBox.Leave += new System.EventHandler(this.OnPrefixOrSuffixChange);
+            this.suffixBox.TextChanged += new System.EventHandler(this.OnNeedRecalculation);
             // 
             // prefixBox
             // 
@@ -219,7 +232,7 @@
             this.prefixBox.Name = "prefixBox";
             this.prefixBox.Size = new System.Drawing.Size(91, 23);
             this.prefixBox.TabIndex = 9;
-            this.prefixBox.Leave += new System.EventHandler(this.OnPrefixOrSuffixChange);
+            this.prefixBox.TextChanged += new System.EventHandler(this.OnNeedRecalculation);
             // 
             // filetypeSelect
             // 
@@ -254,6 +267,16 @@
             this.totalFileCountLabel.TabIndex = 3;
             this.totalFileCountLabel.Text = "Total File Count (unfiltered): 0";
             // 
+            // selectOutputFileButton
+            // 
+            this.selectOutputFileButton.Location = new System.Drawing.Point(15, 43);
+            this.selectOutputFileButton.Name = "selectOutputFileButton";
+            this.selectOutputFileButton.Size = new System.Drawing.Size(114, 23);
+            this.selectOutputFileButton.TabIndex = 18;
+            this.selectOutputFileButton.Text = "Select Output File";
+            this.selectOutputFileButton.UseVisualStyleBackColor = true;
+            this.selectOutputFileButton.Click += new System.EventHandler(this.selectOutputFileButton_Click);
+            // 
             // framerate
             // 
             this.framerate.Location = new System.Drawing.Point(84, 115);
@@ -281,14 +304,21 @@
             this.renderButton.UseVisualStyleBackColor = true;
             this.renderButton.Click += new System.EventHandler(this.renderButton_Click);
             // 
-            // filteredImageCount
+            // chooseOutputSaveFileDialogue
             // 
-            this.filteredImageCount.AutoSize = true;
-            this.filteredImageCount.Location = new System.Drawing.Point(176, 306);
-            this.filteredImageCount.Name = "filteredImageCount";
-            this.filteredImageCount.Size = new System.Drawing.Size(149, 15);
-            this.filteredImageCount.TabIndex = 16;
-            this.filteredImageCount.Text = "Total File Count (filtered): 0";
+            this.chooseOutputSaveFileDialogue.AddExtension = false;
+            this.chooseOutputSaveFileDialogue.DefaultExt = "mp4";
+            this.chooseOutputSaveFileDialogue.FileName = "output";
+            this.chooseOutputSaveFileDialogue.Filter = "MP4 Files | *.mp4";
+            // 
+            // outputPathLabel
+            // 
+            this.outputPathLabel.AutoSize = true;
+            this.outputPathLabel.Location = new System.Drawing.Point(135, 47);
+            this.outputPathLabel.Name = "outputPathLabel";
+            this.outputPathLabel.Size = new System.Drawing.Size(16, 15);
+            this.outputPathLabel.TabIndex = 17;
+            this.outputPathLabel.Text = "...";
             // 
             // Form1
             // 
@@ -326,5 +356,8 @@
         private NumericUpDown framerate;
         private Button sortButton;
         private Label filteredImageCount;
+        private SaveFileDialog chooseOutputSaveFileDialogue;
+        private Button selectOutputFileButton;
+        private Label outputPathLabel;
     }
 }

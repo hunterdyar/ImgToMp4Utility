@@ -7,6 +7,7 @@ namespace WinFormsApp1
     public partial class Form1 : Form
     {
         private string inputPath;
+        private string outputPath;
         private string[] filesUnfiltered;
         private string selectedExtension;
         private int startingValue;
@@ -16,7 +17,6 @@ namespace WinFormsApp1
             InitializeComponent();
             filetypeSelect.SelectedIndex = 0;
             selectedExtension = filetypeSelect.Text.ToString();
-            filteredFilesView.DataSource = images;
             //filteredFilesView.DisplayMember = "Name";
             //filteredFilesView.ValueMember = "Number";
             CalculateFiltered();
@@ -43,15 +43,16 @@ namespace WinFormsApp1
             images.Clear();
             //update list
 
+            startingValue = (int)startNumber.Value;
+
             if (filesUnfiltered != null)
             {
                 foreach (var file in filesUnfiltered)
                 {
                     var f = new InputImage(file);
-                    if(f.HasExtension(selectedExtension))
+                    if (f.HasExtension(selectedExtension))
                     {
-                       
-                        if(f.UpdateNumber(suffixBox.Text,prefixBox.Text, out var number))
+                        if (f.UpdateNumber(prefixBox.Text, suffixBox.Text, out var number))
                         {
                             if (number >= startingValue)
                             {
@@ -59,32 +60,34 @@ namespace WinFormsApp1
                             }
                         }
                     }
-                    
+
                     //ffmpeg - i image-%03d.png video.webm
                 }
             }
-            
+
             UpdateFilterDisplayInfo();
         }
 
-        private void OnPrefixOrSuffixChange(object sender, EventArgs e)
+        private void OnNeedRecalculation(object sender, EventArgs e)
         {
             CalculateFiltered();
         }
 
         private void UpdateFilterDisplayInfo()
         {
-            filteredFilesView.DataSource = images;//rebind
+            filteredFilesView.Items.Clear();
+            filteredFilesView.Items.AddRange(images.ToArray());
+
             //filteredFilesView.Data
             int numberFiles = 0;
-            if(filesUnfiltered != null)
+            if (filesUnfiltered != null)
             {
                 numberFiles = filesUnfiltered.Length;
             }
             totalFileCountLabel.Text = $"Total File Count(unfiltered): {numberFiles}";
             filteredImageCount.Text = $"Total File Count(filtered): {images.Count}";
             filetypeSelect.Text = selectedExtension;
-            foreach(var image in images)
+            foreach (var image in images)
             {
                 image.UpdateNumber(prefixBox.Text, suffixBox.Text, out var n);
             }
@@ -96,26 +99,22 @@ namespace WinFormsApp1
             CalculateFiltered();
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void filenameSuffixLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private async void renderButton_Click(object sender, EventArgs e)
         {
+            if(String.IsNullOrEmpty(outputPath))
+            {
+                //report: no output path selected.
+                return;
+            }
+
             var imageInfos = new List<ImageInfo>();
-            foreach(var item in images)
+            foreach (var item in images)
             {
                 imageInfos.Add(ImageInfo.FromPath(item.FullPath));
             }
-            if(images.Count > 0)
+            if (images.Count > 0)
             {
-                FFMpeg.JoinImageSequence(inputPath + "/output.mp4", frameRate: (int)framerate.Value, imageInfos.ToArray());
+                FFMpeg.JoinImageSequence(outputPath, frameRate: (int)framerate.Value, imageInfos.ToArray());
             }
             else
             {
@@ -128,12 +127,28 @@ namespace WinFormsApp1
         {
             //todo: need a class that
             //holds name, holds path, is sortbale, 
-            
+
             images.Sort((a, b) =>
             {
                 return b.Number - a.Number;
             });
         }
-       
+
+        private void selectOutputFileButton_Click(object sender, EventArgs e)
+        {
+
+            DialogResult result = chooseOutputSaveFileDialogue.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                outputPath = chooseOutputSaveFileDialogue.FileName;
+                outputPathLabel.Text = outputPath;
+            }
+            else
+            {
+                //todo: put error
+            }
+
+        }
     }
 }

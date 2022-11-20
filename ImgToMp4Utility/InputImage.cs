@@ -41,20 +41,37 @@ namespace WinFormsApp1
         public bool UpdateNumber(string prefix,string suffix, out int number)
         {
             string text = name;
-            text = text.StartsWith(prefix) ? text.Substring(prefix.Length) : name;
-            text = text.EndsWith(suffix) ? text.Substring(0, text.Length - suffix.Length) : text;
+            number = -1;
+
+            if (text.StartsWith(prefix))
+            {
+               text = text.Substring(prefix.Length);
+            }
+            else
+            {
+                return false;
+            }
+
+            if(text.EndsWith(suffix))
+            {
+                text = text.Substring(0, text.Length - suffix.Length);
+            }
+            else
+            {
+                return false;
+            }
+
             if(int.TryParse(text, out number))
             {
                 this.number = number;
                 return true;
             }
-            //else
-            this.number = -1;
+
             return false;   
         }
         public override string ToString()
         {
-            return name;
+            return name+extension+" ("+Number+")";
         }
     }
 }
