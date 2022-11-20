@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33110.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImgToMp4Utility", "ImgToMp4Utility\ImgToMp4Utility.csproj", "{2822CA96-3088-4640-A944-1606D8671F4A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2822CA96-3088-4640-A944-1606D8671F4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2822CA96-3088-4640-A944-1606D8671F4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2822CA96-3088-4640-A944-1606D8671F4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2822CA96-3088-4640-A944-1606D8671F4A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D52DDD7F-7C60-4611-B163-C337F04FF41D}
+	EndGlobalSection
+EndGlobal
