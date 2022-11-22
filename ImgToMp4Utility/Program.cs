@@ -1,4 +1,6 @@
 using FFMpegCore;
+using System.Diagnostics;
+using System.Xml.Linq;
 
 namespace ImgToMp4Utility
 {
@@ -13,8 +15,17 @@ namespace ImgToMp4Utility
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            GlobalFFOptions.Configure(options => options.BinaryFolder = System.AppDomain.CurrentDomain.BaseDirectory+"/Resources/");
+            string path = Path.Combine(Path.GetTempPath(), "ffmpeg.exe");
+            if (!File.Exists(path))
+            {
+                File.WriteAllBytes(path, ImgToMp4Utility.Properties.Resources.ffmpeg);
+            }
+            //Process.Start(path);
+            Console.WriteLine("ffmpeg extracted to "+Path.GetTempPath());
+            //GlobalFFOptions.Configure(options => options.BinaryFolder = System.AppDomain.CurrentDomain.BaseDirectory+"/Resources
+            GlobalFFOptions.Configure(options => options.BinaryFolder = Path.GetTempPath());
             Application.Run(new Form1());
+
         }
     }
 }
